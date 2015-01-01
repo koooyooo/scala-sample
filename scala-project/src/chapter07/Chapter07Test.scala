@@ -109,7 +109,7 @@ class Chapter07Test {
    * catch節による補足と、finally節の通過
    */
   @Test
-  def exception() = {
+  def tryNormal() = {
     val sb = new StringBuilder()
     try {
       val result = if (1 + 1 == 1) "wrong" else throw new IllegalStateException()
@@ -122,6 +122,67 @@ class Chapter07Test {
       sb.append("finally")
     }
     assertThat(sb.toString, is("IllegalStateException finally"))
+  }
+  
+  /**
+   * try式
+   * 評価結果の代入
+   */
+  @Test
+  def tryAsExpression() = {
+    val value = try { "Hello" } catch {case ex: Exception => "World"}
+    assertThat(value, is("Hello"))
+  }
+  
+  /**
+   * try式
+   * 評価結果の代入(finally)
+   * ⇒ returnの有無で結果が変わる
+   * ⇒ 何れにせよ、finallyで結果を返すコードは非推奨
+   */
+  @Test
+  def tryAsExpressionFinally() = {
+    assertThat(withValue, is(1))
+    assertThat(withReturn, is(2))
+  }
+  
+  def withValue(): Int = {
+    try { 1 } finally { 2 }
+  }
+  
+  def withReturn():Int = {
+    try { return 1 } finally { return 2 }
+  }
+  
+  /**
+   * match式
+   * 副作用のある Java的な利用法
+   */
+  @Test
+  def matchWithImperativeCoding() = {
+    val str = "Hello"
+    var result: String = null
+    str match {
+      case "First" => result = "First"
+      case "Hello" => result = "Hello"
+      case "World" => result = "World"
+    }
+    assertThat(result, is("Hello"))
+  }
+  
+  /**
+   * match式
+   * 副作用の無い Scala的な利用法
+   */
+  @Test
+  def matchWithoutImperativeCoding() = {
+    val str = "Hello"
+    var result = str match {
+      case "First" => "First"
+      case "Hello" => "Hello"
+      case "World" => "World"
+    }
+    assertThat(result, is("Hello"))
   }
   
 
