@@ -8,7 +8,7 @@ class Chapter07Test {
   
   /**
    * if式
-   * 式としての利用
+   * 式としての利用 (式の右辺や、引数の内側で利用)
    */
   @Test
   def testIf() = {
@@ -23,7 +23,7 @@ class Chapter07Test {
   
   /**
    * for式
-   * ジェネレータ式
+   * ジェネレータ式 (Java の foreach文と等価)
    */
   @Test
   def forByGenerator() = {
@@ -36,24 +36,29 @@ class Chapter07Test {
   
   /**
    * for式
-   * Range式
+   * Range式 (数値を数え上げる時に利用)
    */
   @Test
   def forByRange() = {
     // to を利用した場合
     val sb1 = new StringBuilder()
-    for (i <- 1 to 10) sb1.append(i.toString())
+    for (i <- 1 to 10) sb1.append(i.toString)
     assertThat(sb1.toString(), is("12345678910"))
     
     // until を利用した場合
     val sb2 = new StringBuilder()
-    for (i<- 1 until 10) sb2.append(i.toString())
+    for (i<- 1 until 10) sb2.append(i.toString)
     assertThat(sb2.toString, is("123456789"))
+    
+    // デクリメント (toを利用)
+    val sb3 = new StringBuilder()
+    for (i <- 10 to 1 by -1) sb3.append(i.toString)
+    assertThat(sb3.toString, is("10987654321"))
   }
   
   /**
    * for式
-   * フィルタリングを活用
+   * フィルタリングを活用 (要素の数え上げに条件を追加)
    */
   @Test
   def forWithFiltering() = {
@@ -70,7 +75,7 @@ class Chapter07Test {
   
   /**
    * for式
-   * ループのネスト
+   * ループのネスト (2重のループを 1つのループで表現)
    */
   @Test
   def forWithNest() = {
@@ -83,7 +88,7 @@ class Chapter07Test {
   
   /**
    * for式
-   * 変数への中間結果の束縛
+   * 変数への中間結果の束縛 (式の内部で値を変数に束縛可能)
    */
   @Test
   def forWithAssignment() = {
@@ -126,7 +131,7 @@ class Chapter07Test {
   
   /**
    * try式
-   * 評価結果の代入
+   * 評価結果の代入 (tryも式として利用できる)
    */
   @Test
   def tryAsExpression() = {
@@ -206,7 +211,7 @@ class Chapter07Test {
   }
   
   /**
-   * 佐伯式
+   * 再起式
    * continue文 break文を使わない記述法
    */
   @Test
