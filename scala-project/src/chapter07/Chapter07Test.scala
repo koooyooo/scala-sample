@@ -185,5 +185,40 @@ class Chapter07Test {
     assertThat(result, is("Hello"))
   }
   
+  /**
+   * while文
+   * continue文 break文を使わない記述法 (foundItフラグを活用)
+   */
+  @Test
+  def whileWithoutBreakAndContinue() = {
+    var list = List("hello", "-world", "goodbye!", "-dream!")
+    var i = 0
+    var foundIt = false
+    while (i < list.length && !foundIt) {
+      if (!list(i).startsWith("-")) {
+        if (list(i).endsWith("!")) { 
+          foundIt = true
+        }
+      }
+      if (!foundIt) i = i + 1
+    }
+    assertThat(i, is(2))
+  }
+  
+  /**
+   * 佐伯式
+   * continue文 break文を使わない記述法
+   */
+  @Test
+  def recursiveWithoutBreakAndContinue() = {
+    var list = List("hello", "-world", "goodbye!", "-dream!")
+    def searchFrom(i: Int): Int = {
+      if (i > list.length) -1
+      else if (list(i).startsWith("-")) searchFrom(i + 1)
+      else if (!list(i).endsWith("!")) searchFrom(i + 1)
+      else i
+    }
+    assertThat(searchFrom(0), is(2))
+  }
 
 }
