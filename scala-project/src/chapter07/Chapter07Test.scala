@@ -1,4 +1,4 @@
-package chapter30
+package chapter07
 
 import org.hamcrest.core.Is._
 import org.junit._
