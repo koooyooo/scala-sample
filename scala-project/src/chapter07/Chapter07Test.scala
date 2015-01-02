@@ -225,5 +225,19 @@ class Chapter07Test {
     }
     assertThat(searchFrom(0), is(2))
   }
+  
+  /**
+   * 変数のスコープ
+   * Javaと異なり、内部スコープに同名の変数を定義できる。
+   */
+  @Test
+  def scopeOfVals() = {
+    val a = 1;
+    {
+      val a = 2
+      assertThat(a, is(2))
+    }
+    assertThat(a, is(1))
+  }
 
 }
