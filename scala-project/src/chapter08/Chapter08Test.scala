@@ -108,6 +108,23 @@ class Chapter08Test {
     assertThat(sb.toString, is("12345"))
   }
   
+  /**
+   * 部分適用された関数
+   */
+  @Test
+  def testPartiallyAppliedFunction() = {
+    // メソッドを値としての関数に変換
+    def plus3(x: Int, y: Int, z: Int) = {
+      x + y + z
+    }
+    val appliedPlus3 = plus3 _
+    assertThat(plus3(1, 2, 3), is(6))
+    
+    // 部分適用
+    val plus1 = plus3(1, _: Int , 3)
+    assertThat(plus1(2), is(6))
+  }
+  
   
   
   
